@@ -20,6 +20,7 @@ repositories {
 }
 
 dependencies {
+    // default lib add
     implementation("org.springframework.boot:spring-boot-starter-batch")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -28,6 +29,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.batch:spring-batch-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // log lib add
+    implementation("io.github.oshai:kotlin-logging-jvm:5.1.1")
 }
 
 kotlin {
