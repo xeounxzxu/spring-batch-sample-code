@@ -7,7 +7,6 @@ import org.springframework.batch.core.launch.JobLauncher
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 private val logger = KotlinLogging.logger {}
