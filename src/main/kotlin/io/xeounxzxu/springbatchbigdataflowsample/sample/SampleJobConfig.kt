@@ -11,11 +11,13 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
 
 @Configuration
-class SampleJobConfig {
+class SampleJobConfig(
+    private val jobRepository: JobRepository,
+    private val transactionManage: PlatformTransactionManager
+) {
 
     @Bean
     fun sampleJob(
-        jobRepository: JobRepository,
         sampleStep: TaskletStep
     ): Job {
         return JobBuilder("sampleJob", jobRepository)
@@ -25,9 +27,7 @@ class SampleJobConfig {
 
     @Bean
     fun sampleStep(
-        jobRepository: JobRepository,
-        sampleTasklet: Tasklet,
-        transactionManage: PlatformTransactionManager
+        sampleTasklet: Tasklet
     ): TaskletStep {
         return StepBuilder("step", jobRepository)
             .tasklet(sampleTasklet, transactionManage)
