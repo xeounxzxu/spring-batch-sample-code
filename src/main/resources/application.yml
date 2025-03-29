@@ -3,6 +3,8 @@ spring.application.name: spring-batch-bigdataflow-sample
 spring:
   # Batch Application Meta Data Schema Setting
   batch.jdbc.initialize-schema: always
+  # Sing Job Runner Config Option
+  batch.job.enabled: false
   datasource:
     url: jdbc:mysql://localhost:23306/default
     username: default
@@ -10,17 +12,28 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
-    defer-datasource-initialization: true
-    properties:
-      hibernate:
-        format_sql: true
-    hibernate:
-      ddl-auto: none
     show-sql: true
     open-in-view: false
+    properties:
+      hibernate:
+        generate_statistics: true
+        format_sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
 
 logging:
+
   level:
     root: info
-    org:
-      hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.orm.jdbc.bind: TRACE # Hibernate 6 이상 부터 적용됨
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
+
+# 로그백설정
+  file:
+    name: ./logs/application.log  # 로그 파일 저장 위치 및 이름
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
