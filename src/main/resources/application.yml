@@ -1,6 +1,8 @@
 spring.application.name: spring-batch-bigdataflow-sample
 
 spring:
+  # Batch Application Meta Data Schema Setting
+  batch.jdbc.initialize-schema: always
   datasource:
     url: jdbc:mysql://localhost:23306/default
     username: default
@@ -19,6 +21,6 @@ spring:
 
 logging:
   level:
-    root: debug
+    root: info
     org:
       hibernate.type.descriptor.sql.BasicBinder: TRACE
