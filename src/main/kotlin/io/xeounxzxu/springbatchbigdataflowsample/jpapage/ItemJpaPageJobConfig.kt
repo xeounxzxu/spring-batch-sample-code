@@ -30,8 +30,8 @@ class ItemJpaPageJobConfig(
     // check to same value ...
     private val size = 10000
 
-    // - 1000 의 size 로 돌릴시 3896ms
-    // - 10000 의 size 로 돌릴시 2136ms
+    // - 1000 의 size 로 돌릴시 3896ms --> data size : 102510
+    // - 10000 의 size 로 돌릴시 2136ms --> data size : 102510
 
     @Bean
     fun itemJpaPageJob(

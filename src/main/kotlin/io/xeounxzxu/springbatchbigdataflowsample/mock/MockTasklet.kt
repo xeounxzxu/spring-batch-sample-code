@@ -17,7 +17,7 @@ class MockTasklet(
 
     override fun execute(contribution: StepContribution, chunkContext: ChunkContext): RepeatStatus? {
 
-        for (i in 1..100000) {
+        for (i in 1..100_000_00) {
             val entity = ItemEntity(
                 name = "test_$i",
                 completeDt = LocalDateTime.now()
