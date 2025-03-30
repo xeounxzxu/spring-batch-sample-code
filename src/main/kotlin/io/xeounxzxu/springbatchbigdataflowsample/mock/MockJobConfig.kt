@@ -1,5 +1,6 @@
 package io.xeounxzxu.springbatchbigdataflowsample.mock
 
+import io.xeounxzxu.springbatchbigdataflowsample.common.JobTimingLogger
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.job.builder.JobBuilder
@@ -12,6 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager
 
 @Configuration
 class MockJobConfig(
+    private val jobTimingLogger: JobTimingLogger,
     private val jobRepository: JobRepository,
     private val transactionManage: PlatformTransactionManager
 ) {
@@ -21,6 +23,7 @@ class MockJobConfig(
     ): Job {
         return JobBuilder("mockJob", jobRepository)
             .start(mockStep)
+            .listener(jobTimingLogger)
             .build()
     }
 

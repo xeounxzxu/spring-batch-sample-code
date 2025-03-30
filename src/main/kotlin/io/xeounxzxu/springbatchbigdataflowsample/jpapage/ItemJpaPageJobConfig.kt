@@ -1,6 +1,7 @@
 package io.xeounxzxu.springbatchbigdataflowsample.jpapage
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import io.xeounxzxu.springbatchbigdataflowsample.common.JobTimingLogger
 import io.xeounxzxu.springbatchbigdataflowsample.domain.ItemEntity
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.batch.core.Job
@@ -19,6 +20,7 @@ private val log = KotlinLogging.logger { }
 
 @Configuration
 class ItemJpaPageJobConfig(
+    private val jobTimingLogger: JobTimingLogger,
     private val jobRepository: JobRepository,
     private val transactionManage: PlatformTransactionManager
 ) {
@@ -26,7 +28,10 @@ class ItemJpaPageJobConfig(
     // TODO: 페이징 과 청크 사이즈는 동일하게 작성을 한다.
     // chunk and pageable size
     // check to same value ...
-    private val size = 10
+    private val size = 10000
+
+    // - 1000 의 size 로 돌릴시 3896ms
+    // - 10000 의 size 로 돌릴시 2136ms
 
     @Bean
     fun itemJpaPageJob(
@@ -34,6 +39,7 @@ class ItemJpaPageJobConfig(
     ): Job {
         return JobBuilder("itemJpaPageJob", jobRepository)
             .start(itemJpaPageStep)
+            .listener(jobTimingLogger)
             .build()
     }
 
