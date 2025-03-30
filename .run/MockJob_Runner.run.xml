@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MockJob_Runner" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="spring-batch-bigdataflow-sample.main" />
+    <option name="PROGRAM_PARAMETERS" value="--job.name=mockJob" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.xeounxzxu.springbatchbigdataflowsample.SpringBatchBigdataflowSampleApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
