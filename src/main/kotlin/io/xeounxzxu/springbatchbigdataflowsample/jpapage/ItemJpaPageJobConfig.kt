@@ -30,8 +30,17 @@ class ItemJpaPageJobConfig(
     // check to same value ...
     private val size = 10000
 
-    // - 1000 의 size 로 돌릴시 3896ms --> data size : 102510
-    // - 10000 의 size 로 돌릴시 2136ms --> data size : 102510
+    /**
+     * NOTE: Data Size : 102510
+     * - 1000 의 size 로 돌릴시 3896ms
+     * - 10000 의 size 로 돌릴시 2136ms
+     */
+
+    /**
+     * NOTE: Data Size : 202510
+     *  - 1000 ->  240318ms (4.0053 분)
+     *  - 10000 -> 233983ms (3.8997166667 분)
+     */
 
     @Bean
     fun itemJpaPageJob(
@@ -77,7 +86,7 @@ class ItemJpaPageJobConfig(
     fun itemJpaPageWriter(): ItemWriter<ItemEntity> {
         return ItemWriter { items ->
             items.forEach {
-                log.info { "Write id: ${it.id} And item: ${it.name}" }
+                it.complete()
             }
         }
     }

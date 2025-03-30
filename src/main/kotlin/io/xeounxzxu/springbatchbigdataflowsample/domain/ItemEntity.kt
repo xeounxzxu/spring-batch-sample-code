@@ -13,5 +13,10 @@ class ItemEntity(
     @Column(nullable = false)
     val name: String,
     val completeDt: LocalDateTime? = null,
-    val value: String? = null
-)
+    var value: String? = null
+) {
+
+    fun complete() {
+        this.value = "Y"
+    }
+}
