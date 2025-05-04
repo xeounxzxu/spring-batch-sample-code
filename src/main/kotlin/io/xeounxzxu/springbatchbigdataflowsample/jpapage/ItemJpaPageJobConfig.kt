@@ -6,6 +6,7 @@ import io.xeounxzxu.springbatchbigdataflowsample.domain.ItemEntity
 import jakarta.persistence.EntityManagerFactory
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
+import org.springframework.batch.core.configuration.annotation.StepScope
 import org.springframework.batch.core.job.builder.JobBuilder
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
@@ -65,6 +66,7 @@ class ItemJpaPageJobConfig(
     }
 
     @Bean
+    @StepScope
     fun itemJpaPageReader(
         entityManagerFactory: EntityManagerFactory
     ): ItemReader<ItemEntity> {
@@ -83,6 +85,7 @@ class ItemJpaPageJobConfig(
     }
 
     @Bean
+    @StepScope
     fun itemJpaPageWriter(): ItemWriter<ItemEntity> {
         return ItemWriter { items ->
             items.forEach {
