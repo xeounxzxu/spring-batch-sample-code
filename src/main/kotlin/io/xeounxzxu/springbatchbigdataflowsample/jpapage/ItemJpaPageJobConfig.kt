@@ -4,11 +4,13 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import io.xeounxzxu.springbatchbigdataflowsample.common.JobTimingLogger
 import io.xeounxzxu.springbatchbigdataflowsample.domain.ItemEntity
 import jakarta.persistence.EntityManagerFactory
+import org.springframework.batch.core.ChunkListener
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.StepScope
 import org.springframework.batch.core.job.builder.JobBuilder
 import org.springframework.batch.core.repository.JobRepository
+import org.springframework.batch.core.scope.context.ChunkContext
 import org.springframework.batch.core.step.builder.StepBuilder
 import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.ItemWriter
@@ -62,7 +64,17 @@ class ItemJpaPageJobConfig(
             .chunk<ItemEntity, ItemEntity>(size, transactionManage)
             .reader(itemJpaPageReader)
             .writer(itemJpaPageWriter)
+            .listener(chunkListener())
             .build()
+    }
+
+    @Bean
+    fun chunkListener(): ChunkListener {
+        return object : ChunkListener {
+            override fun afterChunk(context: ChunkContext) {
+                Thread.sleep(500) // chunk 처리 후 지연
+            }
+        }
     }
 
     @Bean
