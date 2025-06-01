@@ -71,6 +71,10 @@ class ItemJpaPageJobConfig(
     @Bean
     fun chunkListener(): ChunkListener {
         return object : ChunkListener {
+            override fun beforeChunk(context: ChunkContext) {
+                super.beforeChunk(context)
+            }
+
             override fun afterChunk(context: ChunkContext) {
                 Thread.sleep(500) // chunk 처리 후 지연
             }
